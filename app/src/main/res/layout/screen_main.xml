@@ -7,11 +7,10 @@
     tools:context=".ui.MainScreen">
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="00:00:00"
         android:textColor="@color/black"
         android:textSize="56sp"
         android:textStyle="bold"
@@ -19,7 +18,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.5"
+        tools:text="00:00:00" />
 
 
     <LinearLayout
@@ -31,21 +31,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.85">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btn_start_pause"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:background="@drawable/ic_start" />
+            android:src="@drawable/ic_start"
+            tools:ignore="ContentDescription" />
 
         <Space
             android:layout_width="46dp"
             android:layout_height="wrap_content" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btn_reset"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:background="@drawable/ic_reset" />
+            android:src="@drawable/ic_reset"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 
