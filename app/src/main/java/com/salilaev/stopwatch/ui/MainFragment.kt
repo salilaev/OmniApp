@@ -12,7 +12,7 @@ import com.salilaev.stopwatch.databinding.ScreenMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainScreen : Fragment(R.layout.screen_main) {
+class MainFragment : Fragment(R.layout.screen_main) {
 
     private val viewModel: MainViewModel by viewModels()
     private var _binding: ScreenMainBinding? = null
