@@ -1,5 +1,6 @@
 package com.salilaev.stopwatch.ui
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +22,7 @@ class MainScreen : Fragment(R.layout.screen_main) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = ScreenMainBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -34,6 +35,9 @@ class MainScreen : Fragment(R.layout.screen_main) {
         }
 
         binding.btnStartPause.setOnClickListener {
+            clickSound {
+                startSound(viewModel.isTimerStarted.value == true)
+            }
             if (viewModel.isTimerStarted.value == true) {
                 viewModel.stopTimer()
             } else {
@@ -42,6 +46,7 @@ class MainScreen : Fragment(R.layout.screen_main) {
         }
 
         binding.btnReset.setOnClickListener {
+            clickSound {  }
             viewModel.reset()
         }
 
@@ -51,7 +56,7 @@ class MainScreen : Fragment(R.layout.screen_main) {
         }
     }
 
-    private fun getTimeFormat(time: Long): String {
+    private fun getTimeFormat(time: Long): String { //string.format
 
         val hour = time / 3600
         val min = time % 3600 / 60
@@ -78,13 +83,29 @@ class MainScreen : Fragment(R.layout.screen_main) {
         return "$hourTime:$minFormat:$secFormat"
     }
 
+    private fun startSound(isStart: Boolean) {
+        val player = MediaPlayer.create(
+            requireContext(),
+            if (isStart) R.raw.start_sound else R.raw.stop_sound
+        )
+        player.start()
+    }
+
+    private fun clickSound(block: () -> Unit) {
+        val mediaPlayer = MediaPlayer.create(requireContext(), R.raw.click_sound)
+        mediaPlayer.setOnCompletionListener {
+            block()
+        }
+        mediaPlayer.start()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onStop() {
+        super.onStop()
         viewModel.saveTime()
         viewModel.stopTimer()
     }
@@ -93,5 +114,4 @@ class MainScreen : Fragment(R.layout.screen_main) {
         super.onResume()
         viewModel.startTimer()
     }
-
 }

@@ -1,7 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Stopwatch" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@color/black</item>
     </style>
+
+    <style name="Theme.Stopwatch" parent="Base.Theme.Stopwatch" >
+        <item name="android:textColor">@color/white</item>
+        <item name="android:tint">@color/white</item>
+    </style>
+
+    <style name="Theme.MainActivity" parent="Theme.Stopwatch">
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="CustomActionBar.MainActivity" parent="Widget.MaterialComponents.ActionBar.Solid">
+        <item name="android:background">@color/black</item>
+    </style>
+
 </resources>

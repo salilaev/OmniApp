@@ -3,7 +3,16 @@
     <style name="Base.Theme.Stopwatch" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@color/white</item>
     </style>
 
-    <style name="Theme.Stopwatch" parent="Base.Theme.Stopwatch" />
+    <style name="Theme.Stopwatch" parent="Base.Theme.Stopwatch" >
+        <item name="android:textColor">@color/black</item>
+        <item name="android:tint">@color/black</item>
+    </style>
+
+    <style name="Theme.MainActivity" parent="Theme.Stopwatch">
+        <item name="android:background">@color/white</item>
+    </style>
+
 </resources>
