@@ -56,31 +56,12 @@ class MainFragment : Fragment(R.layout.screen_main) {
         }
     }
 
-    private fun getTimeFormat(time: Long): String { //string.format
-
+    private fun getTimeFormat(time: Long): String {
         val hour = time / 3600
         val min = time % 3600 / 60
         val sec = time % 60
 
-        val hourTime = if (hour < 10) {
-            "0$hour"
-        } else {
-            hour.toString()
-        }
-
-        val minFormat = if (min < 10) {
-            "0$min"
-        } else {
-            min.toString()
-        }
-
-        val secFormat = if (sec < 10) {
-            "0$sec"
-        } else {
-            "$sec"
-        }
-
-        return "$hourTime:$minFormat:$secFormat"
+        return String.format("%02d:%02d:%02d", hour, min, sec)
     }
 
     private fun startSound(isStart: Boolean) {
