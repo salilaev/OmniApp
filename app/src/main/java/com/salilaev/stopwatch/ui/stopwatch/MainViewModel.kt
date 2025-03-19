@@ -1,4 +1,4 @@
-package com.salilaev.stopwatch.ui
+package com.salilaev.stopwatch.ui.stopwatch
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

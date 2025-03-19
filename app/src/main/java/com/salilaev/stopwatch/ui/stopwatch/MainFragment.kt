@@ -1,4 +1,4 @@
-package com.salilaev.stopwatch.ui
+package com.salilaev.stopwatch.ui.stopwatch
 
 import android.media.MediaPlayer
 import android.os.Bundle
