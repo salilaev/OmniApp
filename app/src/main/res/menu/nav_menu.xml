@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/mainScreen"
+            android:icon="@drawable/icon_stopwatch"
+            android:title="Stopwatch" />
+
+        <item
+            android:id="@+id/weatherScreen"
+            android:icon="@drawable/icon_weather"
+            android:title="Weather" />
+        <item
+            android:id="@+id/newsScreen"
+            android:icon="@drawable/icon_news"
+            android:title="News" />
+
+    </group>
+</menu>

@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.salilaev.stopwatch"
+    namespace = "com.salilaev.omni_app"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.salilaev.stopwatch"
+        applicationId = "com.salilaev.omni_app"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.protolite.well.known.types)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -78,4 +79,16 @@ dependencies {
     implementation(libs.retrofit2.kotlinx.serialization.converter)
 
     implementation(libs.retrofit2.converter.gson)
+
+    implementation(libs.coil.compose)
+    implementation(libs.coil3.coil.network.okhttp)
+
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
+    implementation (libs.material3)
+
+    implementation (libs.glide)
+    implementation(libs.landscapist.glide)
 }

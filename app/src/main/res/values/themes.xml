@@ -9,10 +9,17 @@
     <style name="Theme.Stopwatch" parent="Base.Theme.Stopwatch" >
         <item name="android:textColor">@color/black</item>
         <item name="android:tint">@color/black</item>
+        <item name="drawerArrowStyle">@style/DrawerStyle</item>
     </style>
 
     <style name="Theme.MainActivity" parent="Theme.Stopwatch">
         <item name="android:background">@color/white</item>
+        <item name="drawerArrowStyle">@style/DrawerStyle</item>
+    </style>
+
+    <style name="DrawerStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/white</item>
+        <item name="spinBars">true</item>
     </style>
 
 </resources>

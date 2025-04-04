@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Stopwatch"
+rootProject.name = "OmniApp"
 include(":app")
  
