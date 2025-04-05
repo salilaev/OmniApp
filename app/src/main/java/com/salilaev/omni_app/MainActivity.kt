@@ -25,11 +25,6 @@ class MainActivity : AppCompatActivity(){
         setContentView(binding.root)
         enableEdgeToEdge()
 
-        binding.appBarMain.toolbar.apply {
-            setTitleTextColor(resources.getColor(R.color.white, theme))
-            overflowIcon?.setTint(resources.getColor(R.color.white, theme))
-        }
-
         setSupportActionBar(binding.appBarMain.toolbar)
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
@@ -44,7 +39,6 @@ class MainActivity : AppCompatActivity(){
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

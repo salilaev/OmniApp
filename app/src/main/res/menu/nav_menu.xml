@@ -13,10 +13,10 @@
             android:id="@+id/weatherScreen"
             android:icon="@drawable/icon_weather"
             android:title="Weather" />
+
         <item
             android:id="@+id/newsScreen"
             android:icon="@drawable/icon_news"
             android:title="News" />
-
     </group>
 </menu>

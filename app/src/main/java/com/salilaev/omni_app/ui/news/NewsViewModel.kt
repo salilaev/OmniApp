@@ -38,7 +38,8 @@ class NewsViewModel @Inject constructor(
                         _newsState.value = _newsState.value.copy(
                             isError = true,
                             isLoading = false,
-                            errorMessage = result.message.message
+                            errorMessage = result.message.message,
+                            news = emptyList()
                         )
                     }
                 }

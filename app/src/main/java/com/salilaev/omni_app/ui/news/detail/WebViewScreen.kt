@@ -12,9 +12,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -48,9 +51,7 @@ class WebViewScreen : ComposeFragment() {
 
         Box(modifier = Modifier.fillMaxSize()) {
             Column(modifier = Modifier.fillMaxSize()) {
-                if (isLoading) {
-                    LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-                }
+
 
                 AndroidView(
                     factory = { context ->
@@ -59,18 +60,24 @@ class WebViewScreen : ComposeFragment() {
                             webViewClient = object : WebViewClient() {
                                 override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                                     viewModel.setLoading(true)
+                                    println("True load1")
                                 }
 
                                 override fun onPageFinished(view: WebView?, url: String?) {
                                     viewModel.setLoading(false)
+                                    println("False load1")
+
                                 }
                             }
                             loadUrl(url)
                         }
                     },
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxWidth().weight(1f)
                 )
+
             }
+
+
 
             FloatingActionButton(
                 onClick = {
@@ -82,7 +89,8 @@ class WebViewScreen : ComposeFragment() {
                         author = arguments?.getString("author") ?: "",
                         url = arguments?.getString("url") ?: "",
                         urlToImage = arguments?.getString("urlToImage") ?: "",
-                        category = arguments?.getString("category") ?: ""
+                        category = arguments?.getString("category") ?: "",
+                        saved = true
                     )
                     Log.d("WebViewScreen", "NewsEntity: $newsEntity")
                     viewModel.toggleSavedNews(newsEntity)
@@ -92,14 +100,20 @@ class WebViewScreen : ComposeFragment() {
                     .align(Alignment.BottomEnd)
                     .padding(36.dp)
                     .size(64.dp)
+
             ) {
-                Image(
-                    painter = painterResource(
-                        id = if (isSaved) R.drawable.ic_bookmark_filled else R.drawable.ic_bookmark_outline
-                    ),
-                    contentDescription = if (isSaved) "Saved" else "Save",
-                    modifier = Modifier.size(28.dp)
-                )
+
+                if (isLoading) {
+                    CircularProgressIndicator(Modifier.align(Alignment.Center),color = MaterialTheme.colorScheme.onPrimary)
+                }else{
+                    Image(
+                        painter = painterResource(
+                            id = if (isSaved) R.drawable.ic_bookmark_filled else R.drawable.ic_bookmark_outline
+                        ),
+                        contentDescription = if (isSaved) "Saved" else "Save",
+                        modifier = Modifier.size(28.dp)
+                    )
+                }
             }
         }
     }

@@ -23,6 +23,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
@@ -82,11 +83,11 @@ class NewsScreen : ComposeFragment() {
     ) {
         Column(
             modifier = Modifier.fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
         ) {
             LazyRow(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.White),
+                    .fillMaxWidth(),
                 contentPadding = PaddingValues(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
@@ -134,32 +135,31 @@ class NewsScreen : ComposeFragment() {
     @Composable
     private fun NewsList(newsState: NewsState) {
         PullToRefreshBox(
-            isRefreshing = newsState.isLoading && !newsState.isError,
+            isRefreshing = newsState.isLoading,
             onRefresh = { viewModel.getCurrentNews(newsState.selectedCategory) },
             modifier = Modifier.fillMaxSize()
         ) {
-            when {
 
-                newsState.isError -> {
-                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        Text(
-                            text = newsState.errorMessage ?: "Error",
-                            color = Color.Red,
-                            fontSize = 16.sp
-                        )
-                    }
-                }
-
-                else -> {
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(color = Color.White)
-                    ) {
-                        items(newsState.news) { newsEntity ->
-                            NewsItem(newsEntity)
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                item {
+                    if (newsState.isError) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = newsState.errorMessage ?: "Error",
+                                color = Color.Red,
+                                fontSize = 16.sp
+                            )
                         }
                     }
+                }
+                items(newsState.news) { newsEntity ->
+                    NewsItem(newsEntity)
                 }
             }
         }
@@ -215,7 +215,7 @@ class NewsScreen : ComposeFragment() {
                 text = newsEntity.title ?: "",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = MaterialTheme.colorScheme.onPrimary
             )
 
             Text(
@@ -271,6 +271,3 @@ fun formatAuthor(author: String?): String {
         author ?: ""
     }
 }
-
-
-

@@ -62,7 +62,7 @@ class NewsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun saveNews(news: NewsEntity) {
-        newsDao.insertNews(news)
+        newsDao.saveNews(news)
     }
 
     override suspend fun deleteNewsByUrl(url: String) {

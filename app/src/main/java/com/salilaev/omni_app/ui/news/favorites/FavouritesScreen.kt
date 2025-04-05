@@ -1,6 +1,5 @@
 package com.salilaev.omni_app.ui.news.favorites
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,6 +16,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -52,15 +52,14 @@ class FavouritesScreen : ComposeFragment() {
 
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
-                .background(Color.White),
+                .fillMaxSize(),
             contentPadding = PaddingValues(8.dp)
         ) {
             if (favoritesList.value.isNotEmpty()) {
                 items(favoritesList.value) { newsEntity -> NewsItem(newsEntity = newsEntity) }
             } else item {
                 Box(modifier = Modifier.fillParentMaxSize(), contentAlignment = Alignment.Center) {
-                    Text(text = "No saved news", color = Color.Black)
+                    Text(text = "No saved news", color = MaterialTheme.colorScheme.onPrimary)
                 }
             }
         }

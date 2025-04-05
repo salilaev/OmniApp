@@ -7,6 +7,7 @@ import com.salilaev.omni_app.domain.usecases.DeleteByUrlUseCase
 import com.salilaev.omni_app.domain.usecases.GetAllSavedNewUseCase
 import com.salilaev.omni_app.domain.usecases.SaveNewsUseCase
 import com.salilaev.omni_app.data.remote.response.NetworkResult
+import com.salilaev.omni_app.ui.news.NewsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -44,6 +45,7 @@ class WebViewViewModel @Inject constructor(
 
     fun toggleSavedNews(news: NewsEntity) {
         viewModelScope.launch {
+            _isLoading.value = true
             if (isNewsSaved(news.url?: "")) {
                 deleteByUrl(news.url?: "")
             } else {
@@ -64,13 +66,15 @@ class WebViewViewModel @Inject constructor(
                     is NetworkResult.Success -> {
                         result.data.let {
                             _savedNews.value = it
+                            _isLoading.value = false
                         }
                     }
                     is NetworkResult.Error -> {
                         _savedNews.value = emptyList()
+                        _isLoading.value = false
                     }
                     is NetworkResult.Loading -> {
-
+                        _isLoading.value = true
                     }
                 }
             }
