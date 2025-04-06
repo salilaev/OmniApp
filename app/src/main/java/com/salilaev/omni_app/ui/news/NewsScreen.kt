@@ -23,6 +23,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
@@ -85,17 +86,17 @@ class NewsScreen : ComposeFragment() {
     ) {
         Column(
             modifier = Modifier.fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
         ) {
             LazyRow(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.White),
+                    .fillMaxWidth(),
                 contentPadding = PaddingValues(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(categories) { category ->
                     val isSelected = category == newsState.selectedCategory
-                    val backgroundColor = if (isSelected) Primary else Color.White
+                    val backgroundColor = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
                     val textColor = if (isSelected) Color.White else Color.Black
                     Text(
                         modifier = Modifier
@@ -117,7 +118,7 @@ class NewsScreen : ComposeFragment() {
                 NewsList(newsState)
                 FloatingActionButton(
                     onClick = { findNavController().navigate(R.id.action_newsScreen_to_favouriteScreen) },
-                    containerColor = Primary,
+                    containerColor = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .padding(36.dp)
                         .size(64.dp)
@@ -137,32 +138,31 @@ class NewsScreen : ComposeFragment() {
     @Composable
     private fun NewsList(newsState: NewsState) {
         PullToRefreshBox(
-            isRefreshing = newsState.isLoading && !newsState.isError,
+            isRefreshing = newsState.isLoading,
             onRefresh = { viewModel.getCurrentNews(newsState.selectedCategory) },
             modifier = Modifier.fillMaxSize()
         ) {
-            when {
 
-                newsState.isError -> {
-                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        Text(
-                            text = newsState.errorMessage ?: "Error",
-                            color = Color.Red,
-                            fontSize = 16.sp
-                        )
-                    }
-                }
-
-                else -> {
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(color = Color.White)
-                    ) {
-                        items(newsState.news) { newsEntity ->
-                            NewsItem(newsEntity)
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                item {
+                    if (newsState.isError) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = newsState.errorMessage ?: "Error",
+                                color = Color.Red,
+                                fontSize = 16.sp
+                            )
                         }
                     }
+                }
+                items(newsState.news) { newsEntity ->
+                    NewsItem(newsEntity)
                 }
             }
         }
@@ -219,7 +219,7 @@ class NewsScreen : ComposeFragment() {
                 text = newsEntity.title ?: "",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = MaterialTheme.colorScheme.onPrimary
             )
 
             Text(
@@ -253,6 +253,28 @@ class NewsScreen : ComposeFragment() {
     }
 }
 
+fun formatPublishedDateLegacy(dateString: String?): String {
+    if (dateString.isNullOrBlank()) return ""
+    return try {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+        inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+        val date = inputFormat.parse(dateString) ?: return ""
+
+        val outputFormat = SimpleDateFormat("d MMMM yyyy, HH:mm", Locale("eng"))
+        outputFormat.format(date)
+    } catch (e: Exception) {
+        ""
+    }
+}
+
+fun formatAuthor(author: String?): String {
+    val maxAuthorLength = 30
+    return if ((author?.length ?: 0) > maxAuthorLength) {
+        author?.take(maxAuthorLength) + "..."
+    } else {
+        author ?: ""
+    }
+}
 
 
 

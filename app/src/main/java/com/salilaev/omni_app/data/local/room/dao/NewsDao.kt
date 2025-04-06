@@ -18,7 +18,7 @@ interface NewsDao {
     suspend fun deleteAllUnsavedNews(category: String)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNews(news: NewsEntity)
+    suspend fun saveNews(news: NewsEntity)
 
     @Query("SELECT * FROM news WHERE saved = 1")
     suspend fun getAllSavedNews(): List<NewsEntity>
