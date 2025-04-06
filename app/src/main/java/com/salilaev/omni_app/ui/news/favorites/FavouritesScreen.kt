@@ -35,9 +35,9 @@ import androidx.navigation.fragment.findNavController
 import coil3.compose.AsyncImage
 import com.salilaev.omni_app.ComposeFragment
 import com.salilaev.omni_app.data.local.room.entity.NewsEntity
-import com.salilaev.omni_app.ui.news.formatAuthor
-import com.salilaev.omni_app.ui.news.formatPublishedDateLegacy
 import com.salilaev.omni_app.R
+import com.salilaev.omni_app.utils.formatAuthor
+import com.salilaev.omni_app.utils.formatPublishedDateLegacy
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
