@@ -93,7 +93,7 @@ class NewsScreen : ComposeFragment() {
             ) {
                 items(categories) { category ->
                     val isSelected = category == newsState.selectedCategory
-                    val backgroundColor = if (isSelected) Primary else Color.White
+                    val backgroundColor = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
                     val textColor = if (isSelected) Color.White else Color.Black
                     Text(
                         modifier = Modifier
@@ -115,7 +115,7 @@ class NewsScreen : ComposeFragment() {
                 NewsList(newsState)
                 FloatingActionButton(
                     onClick = { findNavController().navigate(R.id.action_newsScreen_to_favouriteScreen) },
-                    containerColor = Primary,
+                    containerColor = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .padding(36.dp)
                         .size(64.dp)

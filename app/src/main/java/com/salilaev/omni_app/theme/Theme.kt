@@ -17,16 +17,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Primary,
-    secondary = Primary,
-    tertiary = Primary,
-    background = Color.Black,
+    primary = Secondary,
+    secondary = Color.Gray,
+    tertiary = Secondary,
+    background = Background,
     onPrimary = Color.White
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Primary,
-    secondary = Primary,
+    secondary = Color.White,
     tertiary = Primary,
     background = Color.White,
     onPrimary = Color.Black

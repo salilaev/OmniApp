@@ -65,7 +65,6 @@ class FavouritesScreen : ComposeFragment() {
         }
     }
 
-
     @Composable
     fun NewsItem(newsEntity: NewsEntity) {
         Card(
@@ -101,8 +100,7 @@ class FavouritesScreen : ComposeFragment() {
                 modifier = Modifier.padding(vertical = 4.dp, horizontal = 4.dp),
                 text = newsEntity.title ?: "",
                 fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black
+                fontWeight = FontWeight.Bold
             )
 
             Text(
@@ -130,7 +128,6 @@ class FavouritesScreen : ComposeFragment() {
                 )
             }
 
-
             IconButton(
                 modifier = Modifier.align(Alignment.End),
                 onClick = { viewModel.deleteNews(newsEntity.url?: "") }
@@ -141,8 +138,6 @@ class FavouritesScreen : ComposeFragment() {
                     tint = Color.Gray
                 )
             }
-
         }
     }
-
 }
