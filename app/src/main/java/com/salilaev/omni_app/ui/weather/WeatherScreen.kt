@@ -51,7 +51,7 @@ class WeatherScreen : ComposeFragment() {
     override fun Content() {
         val state by viewModel.currentWeatherState.collectAsState()
 
-        val gradientBrush = if (state.isNight) {
+        val gradientBrush = if (state.isLoading || state.isNight) {
             Brush.verticalGradient(DayTheme)
         } else {
             Brush.verticalGradient(NightTheme)
