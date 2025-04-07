@@ -25,7 +25,7 @@ class FavouritesViewModel @Inject constructor(
         getSavedNews()
     }
 
-    private fun getSavedNews() {
+     fun getSavedNews() {
         viewModelScope.launch {
             getAllSavedNews().collect { result ->
                 when (result) {

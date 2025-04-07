@@ -54,6 +54,10 @@ class FavouritesScreen : ComposeFragment() {
 
         val favoritesList = viewModel.savedNews.collectAsState()
 
+        LaunchedEffect(Unit) {
+            viewModel.getSavedNews()
+        }
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize(),
