@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">OmniApp</string>
+    <string name="no_image">No Image</string>
+    <string name="saved">Saved</string>
+    <string name="error">Error</string>
+    <string name="no_saved_news">No saved news</string>
+    <string name="save">Save</string>
 </resources>

@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -44,7 +45,6 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.salilaev.omni_app.ComposeFragment
-import com.salilaev.omni_app.theme.Primary
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.core.os.bundleOf
 import com.salilaev.omni_app.R
@@ -52,9 +52,6 @@ import com.salilaev.omni_app.data.local.room.entity.NewsEntity
 import com.salilaev.omni_app.utils.formatAuthor
 import com.salilaev.omni_app.utils.formatPublishedDateLegacy
 import com.skydoves.landscapist.glide.GlideImage
-import java.text.SimpleDateFormat
-import java.util.Locale
-import java.util.TimeZone
 
 @AndroidEntryPoint
 class NewsScreen : ComposeFragment() {
@@ -113,7 +110,6 @@ class NewsScreen : ComposeFragment() {
                     )
                 }
             }
-
             Box(modifier = Modifier.weight(1f)) {
                 NewsList(newsState)
                 FloatingActionButton(
@@ -126,7 +122,7 @@ class NewsScreen : ComposeFragment() {
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_bookmark_outline),
-                        contentDescription = "Saved",
+                        contentDescription = stringResource(R.string.saved),
                         modifier = Modifier.size(28.dp)
                     )
                 }
@@ -142,27 +138,22 @@ class NewsScreen : ComposeFragment() {
             onRefresh = { viewModel.getCurrentNews(newsState.selectedCategory) },
             modifier = Modifier.fillMaxSize()
         ) {
-
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-            ) {
-                item {
-                    if (newsState.isError) {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = newsState.errorMessage ?: "Error",
-                                color = Color.Red,
-                                fontSize = 16.sp
-                            )
-                        }
+            Box(modifier = Modifier.fillMaxSize()) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    items(newsState.news) { newsEntity ->
+                        NewsItem(newsEntity)
                     }
                 }
-                items(newsState.news) { newsEntity ->
-                    NewsItem(newsEntity)
+
+                if (newsState.isError) {
+                    Text(
+                        text = newsState.errorMessage ?: stringResource(R.string.error),
+                        color = Color.Red,
+                        fontSize = 16.sp,
+                        modifier = Modifier.align(Alignment.Center)
+                    )
                 }
             }
         }
@@ -173,7 +164,7 @@ class NewsScreen : ComposeFragment() {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(vertical = 8.dp, horizontal = 12.dp)
                 .clickable {
                     val bundle = bundleOf(
                         "title" to newsEntity.title,
@@ -198,7 +189,7 @@ class NewsScreen : ComposeFragment() {
                 loading = {
                     Box(
                         modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
+                        contentAlignment = Alignment.Center,
                     ) {
                         CircularProgressIndicator()
                     }
@@ -207,15 +198,15 @@ class NewsScreen : ComposeFragment() {
                 failure = {
                     Image(
                         painter = painterResource(R.drawable.image_no_photo),
-                        contentDescription = "No image",
-                        //contentDescription = stringResource(R.string.app_name),
+                        contentDescription = stringResource(R.string.no_image),
+                        contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
                     )
                 }
             )
 
             Text(
-                modifier = Modifier.padding(vertical = 4.dp, horizontal = 4.dp),
+                modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
                 text = newsEntity.title ?: "",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
@@ -223,7 +214,7 @@ class NewsScreen : ComposeFragment() {
             )
 
             Text(
-                modifier = Modifier.padding(horizontal = 4.dp),
+                modifier = Modifier.padding(horizontal = 8.dp),
                 text = newsEntity.description ?: "",
                 fontSize = 14.sp,
                 color = Color.Gray,

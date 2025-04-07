@@ -7,7 +7,6 @@ import com.salilaev.omni_app.domain.usecases.DeleteByUrlUseCase
 import com.salilaev.omni_app.domain.usecases.GetAllSavedNewUseCase
 import com.salilaev.omni_app.domain.usecases.SaveNewsUseCase
 import com.salilaev.omni_app.data.remote.response.NetworkResult
-import com.salilaev.omni_app.ui.news.NewsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,5 +1,7 @@
 package com.salilaev.omni_app.ui.news.favorites
 
+import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,17 +16,19 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -32,12 +36,12 @@ import androidx.compose.ui.unit.sp
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import coil3.compose.AsyncImage
 import com.salilaev.omni_app.ComposeFragment
 import com.salilaev.omni_app.data.local.room.entity.NewsEntity
 import com.salilaev.omni_app.R
 import com.salilaev.omni_app.utils.formatAuthor
 import com.salilaev.omni_app.utils.formatPublishedDateLegacy
+import com.skydoves.landscapist.glide.GlideImage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -59,7 +63,7 @@ class FavouritesScreen : ComposeFragment() {
                 items(favoritesList.value) { newsEntity -> NewsItem(newsEntity = newsEntity) }
             } else item {
                 Box(modifier = Modifier.fillParentMaxSize(), contentAlignment = Alignment.Center) {
-                    Text(text = "No saved news", color = MaterialTheme.colorScheme.onPrimary)
+                    Text(text = stringResource(R.string.no_saved_news), color = MaterialTheme.colorScheme.onPrimary)
                 }
             }
         }
@@ -86,25 +90,38 @@ class FavouritesScreen : ComposeFragment() {
                     )
                 }, shape = RoundedCornerShape(12.dp), elevation = CardDefaults.cardElevation(4.dp)
         ) {
-            AsyncImage(
-                model = newsEntity.urlToImage,
-                contentDescription = "Image news",
+            GlideImage(
+                imageModel = { newsEntity.urlToImage },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp),
-                fallback = painterResource(R.drawable.image_no_photo),
-                contentScale = ContentScale.Crop
+                loading = {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                },
+
+                failure = {
+                    Image(
+                        painter = painterResource(R.drawable.image_no_photo),
+                        contentDescription = stringResource(R.string.no_image),
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
             )
 
             Text(
-                modifier = Modifier.padding(vertical = 4.dp, horizontal = 4.dp),
+                modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
                 text = newsEntity.title ?: "",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
 
             Text(
-                modifier = Modifier.padding(horizontal = 4.dp),
+                modifier = Modifier.padding(horizontal = 8.dp),
                 text = newsEntity.description ?: "",
                 fontSize = 14.sp,
                 color = Color.Gray,
@@ -130,7 +147,13 @@ class FavouritesScreen : ComposeFragment() {
 
             IconButton(
                 modifier = Modifier.align(Alignment.End),
-                onClick = { viewModel.deleteNews(newsEntity.url?: "") }
+                onClick = { viewModel.deleteNews(newsEntity.url?: "")
+                    Toast.makeText(
+                        context,
+                        "Removed from saved",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_delete),

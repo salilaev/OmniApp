@@ -30,13 +30,11 @@ class FavouritesViewModel @Inject constructor(
             getAllSavedNews().collect { result ->
                 when (result) {
                     is NetworkResult.Loading -> {
-
                     }
                     is NetworkResult.Success -> {
                         _savedNews.value = result.data
                     }
                     is NetworkResult.Error -> {
-
                     }
                 }
             }
