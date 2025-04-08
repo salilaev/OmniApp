@@ -114,7 +114,7 @@ class NewsScreen : ComposeFragment() {
                 NewsList(newsState)
                 FloatingActionButton(
                     onClick = { findNavController().navigate(R.id.action_newsScreen_to_favouriteScreen) },
-                    containerColor = MaterialTheme.colorScheme.primary,
+                    containerColor = MaterialTheme.colorScheme.tertiary,
                     modifier = Modifier
                         .padding(36.dp)
                         .size(64.dp)
@@ -164,7 +164,7 @@ class NewsScreen : ComposeFragment() {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp, horizontal = 12.dp)
+                .padding(vertical = 8.dp, horizontal = 10.dp)
                 .clickable {
                     val bundle = bundleOf(
                         "title" to newsEntity.title,
@@ -189,9 +189,11 @@ class NewsScreen : ComposeFragment() {
                 loading = {
                     Box(
                         modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center,
+                        contentAlignment = Alignment.Center
                     ) {
-                        CircularProgressIndicator()
+                        CircularProgressIndicator(
+                            color = Color.White,
+                        )
                     }
                 },
 

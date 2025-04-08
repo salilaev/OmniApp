@@ -58,10 +58,8 @@ class WebViewScreen : ComposeFragment() {
                                 override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                                     viewModel.setLoading(true)
                                 }
-
                                 override fun onPageFinished(view: WebView?, url: String?) {
                                     viewModel.setLoading(false)
-
                                 }
                             }
                             loadUrl(url)
@@ -98,7 +96,6 @@ class WebViewScreen : ComposeFragment() {
                     .size(64.dp)
 
             ) {
-
                 if (isLoading) {
                     CircularProgressIndicator(Modifier.align(Alignment.Center),color = MaterialTheme.colorScheme.onPrimary)
                 }else{

@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 private val DarkColorScheme = darkColorScheme(
     primary = Secondary,
     secondary = Color.Gray,
-    tertiary = Secondary,
+    tertiary = Color.Gray,
     background = Background,
     onPrimary = Color.White
 )

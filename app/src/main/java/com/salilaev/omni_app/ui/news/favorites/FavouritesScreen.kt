@@ -107,7 +107,6 @@ class FavouritesScreen : ComposeFragment() {
                         CircularProgressIndicator()
                     }
                 },
-
                 failure = {
                     Image(
                         painter = painterResource(R.drawable.image_no_photo),
