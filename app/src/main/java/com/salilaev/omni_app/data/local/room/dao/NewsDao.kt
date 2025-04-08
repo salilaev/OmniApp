@@ -25,5 +25,4 @@ interface NewsDao {
 
     @Query("DELETE FROM news WHERE url = :newsUrl")
     suspend fun deleteNewsByUrl(newsUrl: String)
-
 }

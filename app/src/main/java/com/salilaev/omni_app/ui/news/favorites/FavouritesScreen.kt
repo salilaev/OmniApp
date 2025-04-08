@@ -104,7 +104,9 @@ class FavouritesScreen : ComposeFragment() {
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                        CircularProgressIndicator()
+                        CircularProgressIndicator(
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
                     }
                 },
                 failure = {
