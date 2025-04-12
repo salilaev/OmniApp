@@ -19,6 +19,13 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "OmniApp"
 include(":app")
- 
+include(":presentation:stop_watch")
+include(":presentation:weather")
+include(":presentation:news")
+include(":core:theme")
+include(":core:base")
+include(":data")
+include(":domain")

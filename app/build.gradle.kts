@@ -44,6 +44,14 @@ android {
 
 dependencies {
 
+    implementation(projects.core.base)
+    implementation(projects.presentation.stopWatch)
+    implementation(projects.presentation.weather)
+    implementation(projects.presentation.news)
+    implementation(projects.core.theme)
+    implementation(projects.domain)
+    implementation(projects.data)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -65,15 +73,6 @@ dependencies {
 
     implementation (libs.androidx.datastore.preferences)
 
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-
     implementation (libs.retrofit)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.retrofit2.kotlinx.serialization.converter)
@@ -86,8 +85,6 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
-
-    implementation (libs.material3)
 
     implementation (libs.glide)
     implementation(libs.landscapist.glide)

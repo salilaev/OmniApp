@@ -1,0 +1,48 @@
+package com.salilaev.news.favorites
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.salilaev.domain.news.NewsData
+import com.salilaev.domain.repository.NewsRepository
+import com.salilaev.domain.result.NetworkResult
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class FavouritesViewModel @Inject constructor(
+    private val repository: NewsRepository
+) : ViewModel() {
+
+    private val _savedNews = MutableStateFlow<List<NewsData>>(emptyList())
+    val savedNews: StateFlow<List<NewsData>> get() = _savedNews
+
+    init {
+        getSavedNews()
+    }
+
+     fun getSavedNews() {
+        viewModelScope.launch {
+            repository.getSavedNews().collect { result ->
+                when (result) {
+                    is NetworkResult.Loading -> {
+                    }
+                    is NetworkResult.Success -> {
+                        _savedNews.value = result.data
+                    }
+                    is NetworkResult.Error -> {
+                    }
+                }
+            }
+        }
+    }
+
+    fun deleteNews(newsUrl: String) {
+        viewModelScope.launch {
+            repository.deleteNewsByUrl(newsUrl)
+            getSavedNews()
+        }
+    }
+}

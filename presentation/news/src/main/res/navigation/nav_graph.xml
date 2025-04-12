@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/newsScreen">
+
+    <fragment
+        android:id="@+id/favouritesScreen"
+        android:name="com.salilaev.news.favorites.FavouritesScreen"
+        android:label="FavouritesScreen" >
+        <action
+            android:id="@+id/action_favouritesScreen_to_webViewScreen"
+            app:destination="@id/webViewScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsScreen"
+        android:name="com.salilaev.news.NewsScreen"
+        android:label="NewsScreen" >
+        <action
+            android:id="@+id/action_newsScreen_to_webViewScreen"
+            app:destination="@id/webViewScreen" />
+        <action
+            android:id="@+id/action_newsScreen_to_favouritesScreen"
+            app:destination="@id/favouritesScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/webViewScreen"
+        android:name="com.salilaev.news.detail.WebViewScreen"
+        android:label="WebViewScreen" >
+    </fragment>
+</navigation>

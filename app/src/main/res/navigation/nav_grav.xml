@@ -7,38 +7,14 @@
 
     <fragment
         android:id="@+id/mainScreen"
-        android:name="com.salilaev.omni_app.ui.stopwatch.MainFragment"
+        android:name="com.salilaev.stop_watch.MainFragment"
         android:label="Stopwatch"
         tools:layout="@layout/screen_main" />
     <fragment
         android:id="@+id/weatherScreen"
-        android:name="com.salilaev.omni_app.ui.weather.WeatherScreen"
+        android:name="com.salilaev.weather.WeatherScreen"
         android:label="Weather"
         />
-    <fragment
-        android:id="@+id/newsScreen"
-        android:name="com.salilaev.omni_app.ui.news.NewsScreen"
-        android:label="News">
-        <action
-            android:id="@+id/action_newsScreen_to_favouriteScreen"
-            app:destination="@id/favouriteScreen" />
-        <action
-            android:id="@+id/action_newsScreen_to_webViewScreen"
-            app:destination="@id/webViewScreen" />
-    </fragment>
-    <fragment
-        android:id="@+id/favouriteScreen"
-        android:name="com.salilaev.omni_app.ui.news.favorites.FavouritesScreen"
-        android:label="Favourite" >
-        <action
-            android:id="@+id/action_favouriteScreen_to_webViewScreen"
-            app:destination="@id/webViewScreen" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/webViewScreen"
-        android:name="com.salilaev.omni_app.ui.news.detail.WebViewScreen">
-    </fragment>
-
+    <include app:graph="@navigation/nav_graph" />
 
 </navigation>

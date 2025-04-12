@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OmniApp</string>
+    <string name="no_image">No Image</string>
+    <string name="saved">Saved</string>
+    <string name="error">Error</string>
+    <string name="no_saved_news">No saved news</string>
+    <string name="save">Save</string>
+    <string name="nav_header_desc">Nav header desc</string>
+</resources>
