@@ -20,7 +20,6 @@ object RemoteModule {
     private const val WEATHER = "weather"
     private const val NEWS = "news"
 
-
     @Named(WEATHER)
     @[Provides Singleton]
     fun providesWeatherRetrofit(client: OkHttpClient): Retrofit {
@@ -50,7 +49,6 @@ object RemoteModule {
 
     }
 
-
     @[Provides Singleton]
     fun provideWeatherService(@Named(WEATHER) retrofit: Retrofit): WeatherService {
         return retrofit.create(WeatherService::class.java)
@@ -60,5 +58,4 @@ object RemoteModule {
     fun provideNewsService(@Named(NEWS) retrofit: Retrofit): NewsService {
         return retrofit.create(NewsService::class.java)
     }
-
 }

@@ -1,7 +1,6 @@
 package com.salilaev.data.repository
 
 import com.salilaev.data.local.room.dao.NewsDao
-import com.salilaev.data.local.room.entity.NewsEntity
 import com.salilaev.data.mapper.toNewsData
 import com.salilaev.data.mapper.toNewsEntity
 import com.salilaev.data.remote.api.news.NewsService

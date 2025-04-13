@@ -102,7 +102,7 @@ class NewsScreen : ComposeFragment() {
                             .clickable {
                                 onCategorySelected(category)
                             }
-                            .padding(vertical = 8.dp, horizontal = 12.dp),
+                            .padding(vertical = 8   .dp, horizontal = 12.dp),
                         textAlign = TextAlign.Center,
                         text = category,
                         color = textColor

@@ -75,19 +75,6 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
-
-
     implementation(libs.coil.compose)
     implementation(libs.coil3.coil.network.okhttp)
-
-    implementation (libs.androidx.datastore.preferences)
-
-    implementation (libs.retrofit)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.retrofit2.kotlinx.serialization.converter)
-
-    implementation(libs.retrofit2.converter.gson)
-
-    implementation (libs.glide)
-    implementation(libs.landscapist.glide)
 }

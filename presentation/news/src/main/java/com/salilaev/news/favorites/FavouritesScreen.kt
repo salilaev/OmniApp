@@ -78,7 +78,7 @@ class FavouritesScreen : ComposeFragment() {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(vertical = 8.dp)
                 .clickable {
                     val bundle = bundleOf(
                         "title" to news.title,
