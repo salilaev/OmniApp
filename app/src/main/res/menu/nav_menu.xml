@@ -5,18 +5,18 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/mainScreen"
+            android:id="@+id/mainFragment"
             android:icon="@drawable/icon_stopwatch"
-            android:title="Stopwatch" />
+            android:title="@string/stopwatch" />
 
         <item
             android:id="@+id/weatherScreen"
             android:icon="@drawable/icon_weather"
-            android:title="Weather" />
+            android:title="@string/weather" />
 
         <item
             android:id="@+id/newsScreen"
             android:icon="@drawable/icon_news"
-            android:title="News" />
+            android:title="@string/news" />
     </group>
 </menu>

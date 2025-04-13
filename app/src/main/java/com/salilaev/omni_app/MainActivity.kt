@@ -1,9 +1,11 @@
 package com.salilaev.omni_app
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -14,7 +16,7 @@ import com.salilaev.omni_app.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -33,12 +35,33 @@ class MainActivity : AppCompatActivity(){
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.mainScreen, R.id.weatherScreen, R.id.newsScreen
+                R.id.mainFragment, R.id.weatherScreen, R.id.newsScreen
             ), drawerLayout
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        navView.setNavigationItemSelectedListener { menuItem ->
+            val uri = when (menuItem.itemId) {
+                R.id.mainFragment -> Uri.parse("app://stopwatch")
+                R.id.weatherScreen -> Uri.parse("app://weather")
+                R.id.newsScreen -> Uri.parse("app://news")
+                else -> null
+            }
+
+            uri?.let {
+                val navOptions = NavOptions.Builder()
+                    .setPopUpTo(navController.graph.startDestinationId, false)
+                    .setLaunchSingleTop(true)
+                    .build()
+
+                navController.navigate(it, navOptions)
+                drawerLayout.closeDrawers()
+                true
+            } ?: false
+        }
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

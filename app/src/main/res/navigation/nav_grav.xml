@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_grav"
-    app:startDestination="@id/newsScreen">
+    app:startDestination="@id/stop_watch_graph">
 
-    <fragment
-        android:id="@+id/mainScreen"
-        android:name="com.salilaev.stop_watch.MainFragment"
-        android:label="Stopwatch"
-        tools:layout="@layout/screen_main" />
-    <fragment
-        android:id="@+id/weatherScreen"
-        android:name="com.salilaev.weather.WeatherScreen"
-        android:label="Weather"
-        />
-    <include app:graph="@navigation/nav_graph" />
+    <include app:graph="@navigation/stop_watch_graph" />
+    <include app:graph="@navigation/news_graph" />
+    <include app:graph="@navigation/weather_graph" />
 
 </navigation>

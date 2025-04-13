@@ -71,6 +71,15 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
 
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
+
+
+    implementation(libs.coil.compose)
+    implementation(libs.coil3.coil.network.okhttp)
+
     implementation (libs.androidx.datastore.preferences)
 
     implementation (libs.retrofit)
@@ -78,13 +87,6 @@ dependencies {
     implementation(libs.retrofit2.kotlinx.serialization.converter)
 
     implementation(libs.retrofit2.converter.gson)
-
-    implementation(libs.coil.compose)
-    implementation(libs.coil3.coil.network.okhttp)
-
-    implementation(libs.androidx.room.runtime)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
 
     implementation (libs.glide)
     implementation(libs.landscapist.glide)

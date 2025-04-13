@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/weather_graph"
+    app:startDestination="@id/weatherScreen">
+
+    <fragment
+        android:id="@+id/weatherScreen"
+        android:name="com.salilaev.weather.WeatherScreen"
+        android:label="WeatherScreen">
+        <deepLink
+            app:uri="app://weather" />
+    </fragment>
+</navigation>
