@@ -13,7 +13,9 @@ import kotlinx.coroutines.flow.update
 import java.net.UnknownHostException
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 import javax.inject.Inject
 
 @HiltViewModel
@@ -104,8 +106,9 @@ class WeatherViewModel @Inject constructor(
 
     private fun formatTime(timestamp: Long): String {
         return try {
-            val date = java.util.Date(timestamp * 1000)
+            val date = Date(timestamp * 1000)
             val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
+            sdf.timeZone = TimeZone.getTimeZone("Asia/Tashkent")
             sdf.format(date)
         } catch (e: Exception) {
             "N/A"
