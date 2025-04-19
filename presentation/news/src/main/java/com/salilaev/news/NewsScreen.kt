@@ -244,6 +244,3 @@ class NewsScreen : ComposeFragment() {
         }
     }
 }
-
-
-
