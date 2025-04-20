@@ -1,4 +1,4 @@
-package com.salilaev.data.remote.checker
+package com.salilaev.domain.checker
 
 import android.annotation.SuppressLint
 import android.content.Context

@@ -2,8 +2,8 @@ package com.salilaev.news
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.salilaev.domain.repository.NewsRepository
 import com.salilaev.domain.result.NetworkResult
+import com.salilaev.domain.useCase.news.GetNewsByCategoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
-    private val newsRepository: NewsRepository
+    private val getNewsByCategoryUseCase: GetNewsByCategoryUseCase
 ) : ViewModel() {
 
     private val _newsState = MutableStateFlow(NewsState())
@@ -20,7 +20,7 @@ class NewsViewModel @Inject constructor(
 
     fun getCurrentNews(category: String) {
         viewModelScope.launch {
-            newsRepository.getUnSavedNews(category).collect { result ->
+            getNewsByCategoryUseCase(category).collect { result ->
                 when (result) {
                     is NetworkResult.Loading -> {
                         _newsState.value = _newsState.value.copy(

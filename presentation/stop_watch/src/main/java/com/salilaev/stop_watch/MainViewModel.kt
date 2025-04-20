@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.salilaev.domain.repository.TimeRepository
+import com.salilaev.domain.useCase.stopwatch.GetStopwatchTimeUseCase
+import com.salilaev.domain.useCase.stopwatch.SetStopwatchTimeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -13,7 +14,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val timeRepository: TimeRepository) :
+class MainViewModel @Inject constructor(
+    private val getStopwatchTimeUseCase: GetStopwatchTimeUseCase,
+    private val setStopwatchTimeUseCase: SetStopwatchTimeUseCase
+) :
     ViewModel() {
 
     private val _isTimerStarted: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -28,7 +32,7 @@ class MainViewModel @Inject constructor(private val timeRepository: TimeReposito
 
     init {
         viewModelScope.launch {
-            val savedTime = timeRepository.getTime()
+            val savedTime = getStopwatchTimeUseCase()
             if (savedTime != 0L) {
                 _time.postValue(savedTime)
                 timerValue = savedTime
@@ -59,13 +63,13 @@ class MainViewModel @Inject constructor(private val timeRepository: TimeReposito
         timerValue = 0
         stopTimer()
         viewModelScope.launch {
-            timeRepository.setTime(0)
+            setStopwatchTimeUseCase(0)
         }
     }
 
     fun saveTime() {
         viewModelScope.launch {
-            timeRepository.setTime(timerValue)
+            setStopwatchTimeUseCase(timerValue)
         }
     }
 

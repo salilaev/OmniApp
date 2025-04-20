@@ -3,8 +3,9 @@ package com.salilaev.news.favorites
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.salilaev.domain.news.NewsData
-import com.salilaev.domain.repository.NewsRepository
 import com.salilaev.domain.result.NetworkResult
+import com.salilaev.domain.useCase.news.DeleteNewsByUrlUseCase
+import com.salilaev.domain.useCase.news.GetSavedNewsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavouritesViewModel @Inject constructor(
-    private val repository: NewsRepository
+    private val getSavedNewsUseCase: GetSavedNewsUseCase,
+    private val deleteNewsByUrlUseCase: DeleteNewsByUrlUseCase
 ) : ViewModel() {
 
     private val _savedNews = MutableStateFlow<List<NewsData>>(emptyList())
@@ -25,7 +27,7 @@ class FavouritesViewModel @Inject constructor(
 
      fun getSavedNews() {
         viewModelScope.launch {
-            repository.getSavedNews().collect { result ->
+            getSavedNewsUseCase().collect { result ->
                 when (result) {
                     is NetworkResult.Loading -> {
                     }
@@ -41,7 +43,7 @@ class FavouritesViewModel @Inject constructor(
 
     fun deleteNews(newsUrl: String) {
         viewModelScope.launch {
-            repository.deleteNewsByUrl(newsUrl)
+            deleteNewsByUrlUseCase(newsUrl)
             getSavedNews()
         }
     }

@@ -3,8 +3,10 @@ package com.salilaev.news.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.salilaev.domain.news.NewsData
-import com.salilaev.domain.repository.NewsRepository
 import com.salilaev.domain.result.NetworkResult
+import com.salilaev.domain.useCase.news.DeleteNewsByUrlUseCase
+import com.salilaev.domain.useCase.news.GetSavedNewsUseCase
+import com.salilaev.domain.useCase.news.SaveFavouriteNewsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +16,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WebViewViewModel @Inject constructor(
-    private val repository: NewsRepository
+    private val deleteNewsByUrlUseCase: DeleteNewsByUrlUseCase,
+    private val saveFavouriteNewsUseCase: SaveFavouriteNewsUseCase,
+    private val getSavedNewsUseCase: GetSavedNewsUseCase
 ) : ViewModel() {
 
     private val _url = MutableStateFlow("")
@@ -42,9 +46,9 @@ class WebViewViewModel @Inject constructor(
         viewModelScope.launch {
             _isLoading.value = true
             if (isNewsSaved(news.url?: "")) {
-                repository.deleteNewsByUrl(news.url?: "")
+                deleteNewsByUrlUseCase(news.url?: "")
             } else {
-                repository.saveNews(news)
+                saveFavouriteNewsUseCase(news)
             }
             loadSavedNews()
         }
@@ -56,7 +60,7 @@ class WebViewViewModel @Inject constructor(
 
     private fun loadSavedNews() {
         viewModelScope.launch {
-            repository.getSavedNews().collect { result ->
+            getSavedNewsUseCase().collect { result ->
                 when (result) {
                     is NetworkResult.Success -> {
                         result.data.let {

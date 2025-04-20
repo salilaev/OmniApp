@@ -5,11 +5,18 @@ import com.salilaev.domain.result.NetworkResult
 import kotlinx.coroutines.flow.Flow
 
 interface NewsRepository {
-    fun getUnSavedNews(category: String): Flow<NetworkResult<List<NewsData>>>
 
     suspend fun getSavedNews(): Flow<NetworkResult<List<NewsData>>>
 
     suspend fun saveNews(news: NewsData)
 
     suspend fun deleteNewsByUrl(url: String)
+
+    suspend fun getLocalAllNewsByCategory(category: String): List<NewsData>
+
+    suspend fun getRemoteAllNewsByCategory(category: String): List<NewsData>
+
+    suspend fun deleteAllNewsByCategory(category: String)
+
+    suspend fun saveNews(news: List<NewsData>)
 }
