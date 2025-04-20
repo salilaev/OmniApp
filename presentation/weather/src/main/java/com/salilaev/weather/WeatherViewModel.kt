@@ -2,8 +2,8 @@ package com.salilaev.weather
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.salilaev.domain.repository.WeatherRepository
 import com.salilaev.domain.result.NetworkResult
+import com.salilaev.domain.useCase.weather.GetWeatherUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
-    private val weatherRepository: WeatherRepository
+    private val getWeatherUseCase: GetWeatherUseCase
 ) : ViewModel() {
 
     private val _currentWeatherState = MutableStateFlow(WeatherState())
@@ -31,7 +31,7 @@ class WeatherViewModel @Inject constructor(
     }
 
     fun getCurrentWeather() {
-        weatherRepository.getWeather()
+        getWeatherUseCase()
             .onEach { result ->
                 when (result) {
                     is NetworkResult.Error -> {
